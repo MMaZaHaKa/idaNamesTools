@@ -19,7 +19,12 @@ namespace GlobalHotkey
                 public string SAddress { get; set; }
                 public string Name { get; set; }
                 public uint Size { get; set; }
-                public string MakeIdaSymbol() => $"_ZN{Name.Length}{Name}Ev";
+                //public string MakeIdaSymbol() => $"_ZN{Name.Length}{Name}Ev";
+                public string MakeIdaSymbol(bool nozz = true)
+                {
+                    string s = (nozz && Name.StartsWith("zz_") ? Name.Substring(3) : Name);
+                    return $"_ZN{s.Length}{s}Ev";
+                }
                 public string MakeIdaScriptForAddName(bool symbolname = true)
                 { // from my MkIdaFuncDefScript
                     string str = "";
